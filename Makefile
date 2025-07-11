@@ -3,7 +3,7 @@ default: check
 .PHONY:
 clean-cache:
 	@find . -type d -name "__pycache__" ! -path "./env/*" -exec rm -rf {} +
-	@rm -rf .ruff_cache
+	@rm -rf .ruff_cache .pytest_cache
 
 .PHONY:
 check:
