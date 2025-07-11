@@ -1,0 +1,19 @@
+[project]
+name = "investment-report-generator"
+version = "0.1.0"
+description = "Investment report generator example for Upsonic"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.116.0",
+    "upsonic>=0.60.0",
+    "yfinance>=0.2.65",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.12.2",
+]
+test = [
+    "pytest>=8.4.1",
+]
