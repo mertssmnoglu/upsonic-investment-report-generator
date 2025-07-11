@@ -27,11 +27,11 @@ Example companies to analyze:
 ## Installation
 
 ```shell
-git clone git@github.com:ORG_NAME/REPO_NAME.git
+git clone git@github.com:mertssmnoglu/upsonic-investment-report-generator.git
 ```
 
 ```shell
-git clone https://github.com/ORG_NAME/REPO_NAME.git
+git clone https://github.com/mertssmnoglu/upsonic-investment-report-generator.git
 ```
 
 ---
