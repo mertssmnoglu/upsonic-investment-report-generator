@@ -5,6 +5,9 @@ from agents import agent
 
 app = FastAPI()
 
+@app.get("/health")
+def health():
+    return {"status": "ok"}
 
 @app.get("/ask")
 async def ask(query: str):
