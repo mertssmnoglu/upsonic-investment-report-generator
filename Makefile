@@ -6,6 +6,10 @@ clean-cache:
 	@rm -rf .ruff_cache .pytest_cache
 
 .PHONY:
+clean-reports:
+	@rm -f reports/demo_*
+
+.PHONY:
 check:
 	@uv tool run ruff check .
 
