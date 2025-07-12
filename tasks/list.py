@@ -4,8 +4,9 @@ from tools.stdio import Reports
 from tools.http import yFinance
 # from tools.mcp import something
 
+
 __stock_market_analysis_for_ticker = Task(
-    f"Research for {getenv('TICKER')} and generate comprehensive market analysis report in markdown format",
+    f"Generate comprehensive stock market analysis report in markdown format for {getenv('TICKER')}",
     # response_format=FinanceSearchResult,
     tools=[yFinance],
 )
