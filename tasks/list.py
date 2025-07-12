@@ -29,8 +29,7 @@ __investment_lead = Task(
 __save_report_stock = Task(
     """
 Only save the report under the "reports" directory in markdown format.  
-If you use a tool or function that has an `agent_role` parameter, only pass your own exact role value.  
-Do NOT pass or delegate tasks to any other roles.""",
+""",
     tools=[Reports.create_markdown_report],
     context=[
         __stock_market_analysis_for_ticker,
@@ -40,9 +39,7 @@ Do NOT pass or delegate tasks to any other roles.""",
 __save_report_research = Task(
     """
 Only save the report under the "reports" directory in markdown format.  
-If you use a tool or function that has an `agent_role` parameter, only pass your own exact role value.  
-Do NOT pass or delegate tasks to any other roles.""",
-    tools=[Reports.create_markdown_report],
+""",
     context=[
         __research_rank_companies,
     ],
@@ -51,8 +48,7 @@ Do NOT pass or delegate tasks to any other roles.""",
 __save_report_investment = Task(
     """
 Only save the report under the "reports" directory in markdown format.  
-If you use a tool or function that has an `agent_role` parameter, only pass your own exact role value.  
-Do NOT pass or delegate tasks to any other roles.""",
+""",
     tools=[Reports.create_markdown_report],
     context=[
         __investment_lead,
