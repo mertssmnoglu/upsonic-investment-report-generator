@@ -1,48 +1,20 @@
-from upsonic import Task
-from tools import WriteContentToFile, YFinanceTool
-
-# from tasks import research_on_yfinance_task
-from pydantic import BaseModel
+import tasks.list as task_list
+import time
 
 # Agents
 from agents import stock_analyst
-# from agents import research_analyst
-# # from agents import investment_lead
-# from agents import agent
-# from agents import reliable_agent
-
-
-class FinanceSearchResult(BaseModel):
-    """
-    Base Model for Finance Search Result
-
-    Use json() method when you need json.
-    """
-
-    fullname: str
-    symbol: str
-    city: str
-    summary: str
-    sector: str
-    last_50_day_average: str
-    last_200_day_average: str
-    data_source: str
-    previous_close: str
-    analyst_recommendation: str
-    total_cash: int
+from agents import research_analyst
+from agents import investment_lead
 
 
 # Workflow
-symbol = input("Symbol to research: ")
+print("----STOCK----")
+stock_analyst.do(task_list.stock_analyst)
+time.sleep(3)
 
-task = Task(
-    "Research for given symbol and save the report as 'report.json' with corrected json format using WriteContentToFile",
-    response_format=FinanceSearchResult,
-    tools=[
-        WriteContentToFile,
-        YFinanceTool,
-    ],
-    context=[symbol],
-)
+print("----RESEARCH----")
+research_analyst.do(task_list.research_analyst)
+time.sleep(3)
 
-stock_analyst.print_do(task)
+print("----INVESTMENT LEADER----")
+investment_lead.do(task_list.investment_lead)
