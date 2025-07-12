@@ -40,6 +40,7 @@ __save_report_research = Task(
     """
 Only save the report under the "reports" directory in markdown format.  
 """,
+    tools=[Reports.create_markdown_report],
     context=[
         __research_rank_companies,
     ],
