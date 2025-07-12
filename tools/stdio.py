@@ -19,7 +19,7 @@ def writeContentToFile(
         content: Content to write to the file
 
     Returns:
-        A message indicating success or failure
+        An integer of writen bytes
     """
 
     try:
@@ -72,13 +72,9 @@ class Reports:
         else:
             pathname = f"{prefix}report{dateTimeString()}.md"
 
-        return writeContentToFile(f"{dir}/{pathname}", content)
+        dir = dir.joinpath(pathname)
 
-    # @staticmethod
-    # def get_latest_report_for_agent(
-    #     agent_role: Literal["stock-analyst", "research-analyst", "investment-lead"],
-    # ):
-    #     pass
+        return dir.write_text(content, encoding="utf-8")
 
 
 def dateTimeString() -> str:
