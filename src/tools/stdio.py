@@ -5,6 +5,7 @@ Host related tools like reading, creating files on the host machine.
 from typing import Literal
 from datetime import datetime
 from pathlib import Path
+from os import getenv
 
 
 def writeContentToFile(
@@ -61,7 +62,10 @@ class Reports:
         else:
             print("Directory does not exist or is not a directory.")
 
-        prefix = "demo_"  # Just for the demo
+        prefix = ""
+        is_demo = getenv("DEMO")
+        if is_demo is not None and is_demo.lower() == "true":
+            prefix = "demo_"
 
         if agent_role == "stock-analyst":
             pathname = f"{prefix}stock_analyst_report_{dateTimeString()}.md"

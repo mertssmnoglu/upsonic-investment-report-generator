@@ -35,7 +35,11 @@ fix: format
 
 .PHONY:
 demo:
-	@uv run src/demo.py
+	@DEMO=true uv run src/demo.py
+
+.PHONY:
+demo-team:
+	@DEMO=true uv run src/demo_team.py
 
 .PHONY:
 run:
