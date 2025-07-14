@@ -10,6 +10,10 @@ clean-reports:
 	@rm -f reports/demo_*
 
 .PHONY:
+clean-uv-cache:
+	@uv cache clean
+
+.PHONY:
 check:
 	@uv tool run ruff check .
 
@@ -24,7 +28,11 @@ format:
 .PHONY:
 fix: format
 	@uv tool run ruff check --fix
-	
+
+.PHONY:
+demo:
+	@uv run demo.py
+
 .PHONY:
 run:
 	@uvicorn main:app --host 0.0.0.0 --port 8000
