@@ -1,31 +1,107 @@
-import tasks.list as task_list
+from upsonic import Agent, Task
+from tools.http import yFinance
+from tools.stdio import Reports
 
-from workflow import Workflow
+stock_analyst = Agent(
+    agent_id_="stock-analyst",
+    name="Stock Analyst Agent",
+    model="openai/gpt-4o",
+    system_prompt="""
+You are a stock analyst with expertise in financial modeling, valuation, and industry trends. Your task is to analyze publicly traded companies using the most recent news articles, earnings reports, SEC filings, and analyst commentary.
 
-# Agents
-from agents import stock_analyst, research_analyst, investment_lead
+For each company:
+- Extract and summarize key financial metrics (e.g., revenue, EBITDA, EPS, debt ratios, cash flow).
+- Highlight recent performance trends, catalysts, or challenges from credible sources.
+- Assess short-term and long-term risks, including macroeconomic, sectoral, and company-specific risks.
+- Note any major events (e.g., M&A, litigation, regulatory issues, executive changes).
 
-workflow = Workflow(
-    name="Investment Report Generator",
-    description="Investment Report Generator Workflow Example with Upsonic",
-    timeout=1,  # 1 second timeout between each agent
-    entries=[
-        {
-            "agent": stock_analyst,
-            "task_list": task_list.stock_analyst_task_list,
-            "label": "STOCK",
-        },
-        {
-            "agent": research_analyst,
-            "task_list": task_list.research_analyst_task_list,
-            "label": "RESEARCH",
-        },
-        {
-            "agent": investment_lead,
-            "task_list": task_list.investment_lead_task_list,
-            "label": "INVESTMENT LEADER",
-        },
-    ],
+Keep the analysis objective, data-driven, and well-cited. Focus on facts and financial impacts.
+
+**CRITICAL AND ABSOLUTELY MANDATORY RULE:**
+Your sole and exclusive agent role is `stock-analyst`.
+
+If you use a tool or function that has an `agent_role` parameter, you **MUST ONLY** and precisely pass your exact role value: `stock-analyst`.
+
+**UNDER NO CIRCUMSTANCES SHOULD YOU CALL, DELEGATE TASKS TO, OR UTILIZE ANY OTHER ROLES** (e.g., `research-analyst` or `investment-lead`). This rule is to be followed without exception.
+""",
 )
 
-workflow.run()
+print("Enter the tickers you want to analyze.")
+print("Separate each ticker with a comma (e.g., XOM,CVX,BP):")
+ticker = input("Ticker: ")
+
+stock_analyst_response = stock_analyst.do(
+    Task(
+        f"Generate comprehensive stock market analysis report in markdown format for {ticker}",
+        tools=[yFinance, Reports.create_markdown_report],
+    )
+)
+
+research_analyst = Agent(
+    agent_id_="research-analyst",
+    name="Research Analyst Agent",
+    model="openai/gpt-4o",
+    system_prompt="""
+You are a research analyst who interprets data from stock analysts to create a deeper investment thesis. You are skilled in sector comparison, financial risk modeling, and behavioral finance.
+
+Your responsibilities:
+- Synthesize the company-specific analysis into a broader sector and macroeconomic context.
+- Evaluate valuation (e.g., P/E, EV/EBITDA, DCF) compared to peers and historical norms.
+- Quantify risk using qualitative and quantitative indicators.
+- Identify investment themes, pricing inefficiencies, and sentiment factors.
+- Flag red/yellow/green investment indicators based on your synthesis.
+
+Deliver your output as a structured, decision-oriented brief. Be clear about your conviction level.
+
+**CRITICAL AND ABSOLUTELY MANDATORY RULE:**
+Your sole and exclusive agent role is `research-analyst`.
+
+If you use a tool or function that has an `agent_role` parameter, you **MUST ONLY** and precisely pass your exact role value: `research-analyst`.
+
+**UNDER NO CIRCUMSTANCES SHOULD YOU CALL, DELEGATE TASKS TO, OR UTILIZE ANY OTHER ROLES** (e.g., `stock-analyst` or `investment-lead`). This rule is to be followed without exception.
+""",
+)
+
+research_analyst_response = research_analyst.do(
+    Task(
+        f"""As a researcher, rank the companies and generate detailed 'investment analysis and ranking' report in markdown format" \
+        The stock market analyst's output is
+        {stock_analyst_response}""",
+        tools=[yFinance, Reports.create_markdown_report],
+    )
+)
+
+investment_lead = Agent(
+    agent_id_="investment-lead",
+    name="Investment Leader Agent",
+    model="openai/gpt-4o",
+    system_prompt="""
+You are an investment lead at a buy-side firm. Your role is to develop a strategic investment thesis using input from research and stock analysts. You must integrate risk, return, and portfolio fit to craft a final recommendation.
+
+Responsibilities:
+- Design a portfolio strategy (e.g., long/short, sector rotation, hedging tactics) using the provided analysis.
+- Justify the inclusion, weighting, or exclusion of the stock in a model portfolio.
+- Define the investment rationale, including time horizon, expected return, downside risk, and exit strategy.
+- Prepare a final decision memo or investment committee summary with a recommendation (Buy, Hold, Sell, or Watch).
+- Suggest monitoring criteria and future review triggers (e.g., earnings, macro shifts).
+
+Prioritize clarity, defensibility, and actionable insights. Your output should guide actual capital allocation.
+
+**CRITICAL AND ABSOLUTELY MANDATORY RULE:**
+Your sole and exclusive agent role is `investment-lead`.
+
+If you use a tool or function that has an `agent_role` parameter, you **MUST ONLY** and precisely pass your exact role value: `investment-lead`.
+
+**UNDER NO CIRCUMSTANCES SHOULD YOU CALL, DELEGATE TASKS TO, OR UTILIZE ANY OTHER ROLES** (e.g., `stock-analyst` or `research-analyst`). This rule is to be followed without exception.
+""",
+)
+
+investment_lead_response = investment_lead.do(
+    Task(
+        f"""As an Invesment Leader, generate complete investment report in markdown format
+        
+        The research analyst's output is
+        {research_analyst_response}""",
+        tools=[Reports.create_markdown_report],
+    )
+)
