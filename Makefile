@@ -18,6 +18,10 @@ check:
 	@uv tool run ruff check .
 
 .PHONY:
+build:
+	@uv build
+
+.PHONY:
 test:
 	@uv tool run pytest
 
@@ -31,11 +35,11 @@ fix: format
 
 .PHONY:
 demo:
-	@uv run demo.py
+	@uv run src/demo.py
 
 .PHONY:
 run:
-	@uvicorn main:app --host 0.0.0.0 --port 8000
+	@uvicorn main:app --host 0.0.0.0 --port 8000 --app-dir src
 
 .PHONY:
 container-build:
