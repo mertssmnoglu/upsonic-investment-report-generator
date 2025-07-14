@@ -1,5 +1,6 @@
 from upsonic import Agent, Task
 from typing import TypedDict, List
+from tools.stdio import Reports
 import time
 
 
@@ -34,6 +35,7 @@ class Workflow:
         self.entries: List[WorkflowEntry] = entries
         self.timeout: int = timeout
         self.__summary: str = ""
+        self.__previous_response = ""
 
     def run(self) -> None:
         """
@@ -44,7 +46,7 @@ class Workflow:
             agent, tasks, label = entry["agent"], entry["task_list"], entry["label"]
 
             print(f"----{label}----")
-            agent.do(tasks)
+            self.__previous_response = agent.do(tasks)
             time.sleep(self.timeout)
 
             # save agent task response and save it to summary
@@ -53,6 +55,7 @@ class Workflow:
 
         # self.__summarize()
         # return self.__summary
+        Reports.create_markdown_report("investment-lead", content="")
 
     def __summarize(self):
         summary = self.__summary

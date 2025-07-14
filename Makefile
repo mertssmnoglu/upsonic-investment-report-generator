@@ -38,8 +38,8 @@ demo:
 	@DEMO=true uv run src/demo.py
 
 .PHONY:
-demo-team:
-	@DEMO=true uv run src/demo_team.py
+demo-workflow:
+	@DEMO=true uv run src/demo_workflow.py
 
 .PHONY:
 run:
