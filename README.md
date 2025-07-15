@@ -1,5 +1,9 @@
 # Investment Report Generator | Upsonic
 
+Investment Report Generator example for [Upsonic](https://github.com/upsonic/upsonic) framework.
+
+## Introduction
+
 This advanced example shows how to build a sophisticated investment analysis system that combines market research, financial analysis, and portfolio management. The workflow uses a three-stage approach:
 
 - Comprehensive stock analysis and market research
@@ -26,46 +30,78 @@ Example companies to analyze:
 
 ## Installation
 
-```shell
-git clone git@github.com:mertssmnoglu/upsonic-investment-report-generator.git
-```
+### Prerequisites
+
+- Python 3.12 or higher
+- [uv](https://docs.astral.sh/uv/) package manager
+- Make (optional, for using Makefile commands)
+
+### Clone the Repository
+
+Using HTTPS:
 
 ```shell
 git clone https://github.com/mertssmnoglu/upsonic-investment-report-generator.git
+cd upsonic-investment-report-generator
+```
+
+Using SSH:
+
+```shell
+git clone git@github.com:mertssmnoglu/upsonic-investment-report-generator.git
+cd upsonic-investment-report-generator
 ```
 
 ---
 
-## Usage
+### Setup
+
+Prepare the environment
 
 ```shell
 uv venv --python 3.12
 ```
 
+Activate the virtual environment.
+
 ```shell
-source .venv/bin/activate.fish
+source .venv/bin/activate
 ```
 
-Start the server on port 8000
+Install the dependencies
 
 ```shell
-uvicorn main:app --host 0.0.0.0 --port 8000
+# Sync the dependencies according to the uv.lock file
+uv sync
 ```
 
-## Developer must-use commands
+## Demo App
 
-### Save uv dependencies to requirements.txt
+Demo app introduces a command line investment report generator that generates detailed investment reports based on the provided company symbols(tickers).
+
+Run the demo and see it in action:
 
 ```shell
-# Sync requirements.txt with uv
-uv pip freeze > requirements.txt
+make demo
+```
+
+## Server
+
+There is a server that can be used to run the investment report generator as a web service.
+
+It saves the generated reports in the `reports` directory.
+
+```shell
+make run
 ```
 
 ```shell
-pip install -r requirements.txt
+uvicorn main:app --host 0.0.0.0 --port 8000 --app-dir src
 ```
 
 ## Docker
+
+You can run the investment report generator server as a Docker container.
 
 ```shell
 docker build -t upsonic-investment-report-generator .
@@ -74,3 +110,5 @@ docker build -t upsonic-investment-report-generator .
 ```shell
 docker run -p 8000:8000 --env-file .env upsonic-investment-report-generator:latest
 ```
+
+Please see [DEPLOYMENT.md](DEPLOYMENT.md) for more details on deploying the investment report generator server.
