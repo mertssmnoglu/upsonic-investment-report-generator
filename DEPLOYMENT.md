@@ -68,7 +68,7 @@ This document provides instructions for deploying the Investment Report Generato
         ports:
           - 8000:8000
         volumes:
-          - reports-data:/app/reports:ro
+          - reports-data:/app/reports:rw
 
     volumes:
       reports-data:
