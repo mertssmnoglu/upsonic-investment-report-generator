@@ -9,7 +9,7 @@
 - [x] Stream the status in server.
 - [x] Containerize the server.
 - [x] Provide docker compose file.
-- [ ] Push containerized server to a public container registry.
+- [x] Push containerized server to a public container registry.
+- [x] Create a git tag for stable version.
 - [ ] Create basic web UI to interact with agents.
-- [ ] Create a git tag for stable version.
 - [ ] Document the architecture.
