@@ -1,5 +1,7 @@
 # Investment Report Generator | Upsonic
 
+![Docker Image Version (tag)](https://img.shields.io/docker/v/mertssmnoglu/upsonic-investment-report-generator/latest)
+
 Investment Report Generator example for [Upsonic](https://github.com/upsonic/upsonic) framework.
 
 ## Introduction
@@ -103,12 +105,24 @@ uvicorn main:app --host 0.0.0.0 --port 8000 --app-dir src
 
 You can run the investment report generator server as a Docker container.
 
+### Pull from Docker Hub
+
+```shell
+docker pull mertssmnoglu/upsonic-investment-report-generator
+```
+
+```shell
+docker run -p 8000:8000 --detach --env-file .env mertssmnoglu/upsonic-investment-report-generator
+```
+
+### Manual Build and Run
+
 ```shell
 docker build -t upsonic-investment-report-generator .
 ```
 
 ```shell
-docker run -p 8000:8000 --env-file .env upsonic-investment-report-generator:latest
+docker run -p 8000:8000 --detach --env-file .env upsonic-investment-report-generator:latest
 ```
 
 Please see [DEPLOYMENT.md](DEPLOYMENT.md) for more details on deploying the investment report generator server.
