@@ -128,3 +128,7 @@ docker run -p 8000:8000 --detach --env-file .env upsonic-investment-report-gener
 ```
 
 Please see [DEPLOYMENT.md](DEPLOYMENT.md) for more details on deploying the investment report generator server.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
