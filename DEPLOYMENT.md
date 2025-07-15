@@ -1,5 +1,7 @@
 # Deployment
 
+This document provides instructions for deploying the Investment Report Generator using Docker.
+
 ## Docker - Build and Push
 
 1. Docker Build
