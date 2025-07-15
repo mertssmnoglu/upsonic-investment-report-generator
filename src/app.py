@@ -20,12 +20,29 @@ class GenerateInvestmentReport:
             {
                 "agent": agent,
                 "status": status,
-                "timestamp": datetime.timestamp(datetime.now()),
+                "timestamp": datetime.now().isoformat(),
             }
         )
 
+    async def __run_agent_with_updates(self, agent, task, agent_name: str):
+        """Run an agent asynchronously with periodic status updates"""
+        await self.__append_status(agent_name, "running")
+
+        agent_task = asyncio.create_task(agent.do_async(task))
+
+        while not agent_task.done():
+            await asyncio.sleep(0.5)  # 500ms
+            if not agent_task.done():
+                await self.__append_status(agent_name, "processing")
+
+        result = await agent_task
+        await self.__append_status(agent_name, "done")
+
+        return result
+
     async def run(self, tickers: str):
-        # Add TASK STARTED status
+        await self.__append_status("system", f"task started with tickers: {tickers}")
+        self.status = "running"
 
         stock_analyst = Agent(
             agent_id_="stock-analyst",
@@ -51,16 +68,14 @@ class GenerateInvestmentReport:
         """,
         )
 
-        await self.__append_status("stock-analyst", "running")
-
-        stock_analyst_response = stock_analyst.do(
+        stock_analyst_response = await self.__run_agent_with_updates(
+            stock_analyst,
             Task(
                 f"Generate comprehensive stock market analysis report in markdown format for {tickers}",
                 tools=[yFinance, Reports.create_markdown_report],
-            )
+            ),
+            "stock-analyst",
         )
-
-        await self.__append_status("stock-analyst", "done")
 
         research_analyst = Agent(
             agent_id_="research-analyst",
@@ -87,18 +102,16 @@ class GenerateInvestmentReport:
         """,
         )
 
-        await self.__append_status("research-analyst", "running")
-
-        research_analyst_response = research_analyst.do(
+        research_analyst_response = await self.__run_agent_with_updates(
+            research_analyst,
             Task(
                 f"""As a researcher, rank the companies and generate detailed 'investment analysis and ranking' report in markdown format" \
                 The stock market analyst's output is
                 {stock_analyst_response}""",
                 tools=[yFinance, Reports.create_markdown_report],
-            )
+            ),
+            "research-analyst",
         )
-
-        await self.__append_status("research-analyst", "done")
 
         investment_lead = Agent(
             agent_id_="investment-lead",
@@ -125,20 +138,18 @@ class GenerateInvestmentReport:
         """,
         )
 
-        await self.__append_status("investment-lead", "running")
-
-        investment_lead_response = investment_lead.do(
+        investment_lead_response = await self.__run_agent_with_updates(
+            investment_lead,
             Task(
                 f"""As an Invesment Leader, generate complete investment report in markdown format
                 
                 The research analyst's output is
                 {research_analyst_response}""",
                 tools=[Reports.create_markdown_report],
-            )
+            ),
+            "investment-lead",
         )
 
-        await self.__append_status("investment-lead", "done")
-
-        # Add TASK DONE status
+        self.status = "completed"
 
         return investment_lead_response
