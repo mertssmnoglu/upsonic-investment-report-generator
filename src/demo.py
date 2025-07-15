@@ -2,6 +2,10 @@ from upsonic import Agent, Task
 from tools.http import yFinance
 from tools.stdio import Reports
 
+print("Enter the tickers you want to analyze.")
+print("Separate each ticker with a comma (e.g., XOM,CVX,BP):")
+ticker = input("Ticker: ")
+
 stock_analyst = Agent(
     agent_id_="stock-analyst",
     name="Stock Analyst Agent",
@@ -25,10 +29,6 @@ If you use a tool or function that has an `agent_role` parameter, you **MUST ONL
 **UNDER NO CIRCUMSTANCES SHOULD YOU CALL, DELEGATE TASKS TO, OR UTILIZE ANY OTHER ROLES** (e.g., `research-analyst` or `investment-lead`). This rule is to be followed without exception.
 """,
 )
-
-print("Enter the tickers you want to analyze.")
-print("Separate each ticker with a comma (e.g., XOM,CVX,BP):")
-ticker = input("Ticker: ")
 
 stock_analyst_response = stock_analyst.do(
     Task(
