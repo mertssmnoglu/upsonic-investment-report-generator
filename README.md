@@ -82,7 +82,7 @@ uv sync
 
 ## Jupyter Notebook
 
-This project includes a Jupyter Notebook for interactive exploration and analysis of investment data. You can find the notebook in the `notebooks` directory.
+This project includes a Jupyter Notebook for interactive exploration and analysis of investment data. You can find the notebook in the [notebooks](notebooks) directory.
 
 ## Demo App
 
