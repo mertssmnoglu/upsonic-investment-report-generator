@@ -80,6 +80,22 @@ Install the dependencies
 uv sync
 ```
 
+## Environment Variables
+
+```shell
+# Required
+OPENAI_API_KEY=your_openai_api_key
+
+# Optional, default is false
+DEMO=true/false
+```
+
+You can copy `.env.example` as `.env` and fill in the required values.
+
+```shell
+cp .env.example .env
+```
+
 ## Jupyter Notebook
 
 This project includes a Jupyter Notebook for interactive exploration and analysis of investment data. You can find the notebook in the [notebooks](notebooks) directory.
