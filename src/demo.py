@@ -1,6 +1,5 @@
 from upsonic import Agent, Task
-from tools.http import yFinance
-from tools.stdio import Reports
+from tools import yFinance, Reports
 
 print("Enter the tickers you want to analyze.")
 print("Separate each ticker with a comma (e.g., XOM,CVX,BP):")

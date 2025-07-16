@@ -2,8 +2,6 @@
 
 [![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
-[![Docker Pulls](https://img.shields.io/docker/pulls/mertssmnoglu/upsonic-investment-report-generator)](https://hub.docker.com/r/mertssmnoglu/upsonic-investment-report-generator)
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mertssmnoglu/upsonic-investment-report-generator/blob/main/notebooks/investment_report_generator.ipynb)
 
 Investment Report Generator example for [Upsonic](https://github.com/upsonic/upsonic) framework.
 
@@ -109,46 +107,6 @@ Run the demo and see it in action:
 ```shell
 make demo
 ```
-
-## Server
-
-There is a server that can be used to run the investment report generator as a web service.
-
-It saves the generated reports in the `reports` directory.
-
-```shell
-make run
-```
-
-```shell
-uvicorn main:app --host 0.0.0.0 --port 8000 --app-dir src
-```
-
-## Docker
-
-You can run the investment report generator server as a Docker container.
-
-### Pull from Docker Hub
-
-```shell
-docker pull mertssmnoglu/upsonic-investment-report-generator
-```
-
-```shell
-docker run -p 8000:8000 --detach --env-file .env mertssmnoglu/upsonic-investment-report-generator
-```
-
-### Manual Build and Run
-
-```shell
-docker build -t upsonic-investment-report-generator .
-```
-
-```shell
-docker run -p 8000:8000 --detach --env-file .env upsonic-investment-report-generator:latest
-```
-
-Please see [DEPLOYMENT.md](DEPLOYMENT.md) for more details on deploying the investment report generator server.
 
 ## License
 

@@ -1,11 +1,24 @@
-"""
-Host related tools like reading, creating files on the host machine.
-"""
-
+import yfinance as yf
 from typing import Literal
 from datetime import datetime
 from pathlib import Path
 from os import getenv
+
+
+def yFinance(query: str):
+    """
+    Search Yfinance for the given query and return text results.
+
+    Args:
+        query: The search symbol to query like MSFT
+
+    Returns:
+        Dictionaries containing search results
+    """
+
+    data = yf.Ticker(query)
+
+    return data.info
 
 
 def writeContentToFile(
