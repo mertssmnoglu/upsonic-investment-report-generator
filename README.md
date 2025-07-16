@@ -3,6 +3,7 @@
 [![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 ![Docker Image Version (tag)](https://img.shields.io/docker/v/mertssmnoglu/upsonic-investment-report-generator/latest)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mertssmnoglu/upsonic-investment-report-generator/blob/main/notebooks/investment_report_generator.ipynb)
 
 Investment Report Generator example for [Upsonic](https://github.com/upsonic/upsonic) framework.
 
@@ -78,6 +79,10 @@ Install the dependencies
 # Sync the dependencies according to the uv.lock file
 uv sync
 ```
+
+## Jupyter Notebook
+
+This project includes a Jupyter Notebook for interactive exploration and analysis of investment data. You can find the notebook in the `notebooks` directory.
 
 ## Demo App
 
