@@ -2,7 +2,7 @@
 
 [![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
-![Docker Image Version (tag)](https://img.shields.io/docker/v/mertssmnoglu/upsonic-investment-report-generator/latest)
+[![Docker Pulls](https://img.shields.io/docker/pulls/mertssmnoglu/upsonic-investment-report-generator)](https://hub.docker.com/r/mertssmnoglu/upsonic-investment-report-generator)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mertssmnoglu/upsonic-investment-report-generator/blob/main/notebooks/investment_report_generator.ipynb)
 
 Investment Report Generator example for [Upsonic](https://github.com/upsonic/upsonic) framework.
